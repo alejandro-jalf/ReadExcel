@@ -2,13 +2,55 @@ var app = new Vue({
     el: "#app",
     data: {
         registers: [
-            // {Articulo: "0541137", Nombre: "Pas. Triple Accion Ext. B Colgate 50 ml", Factor: "1/44", Unidad: "CJA/PZA", Pedido: 1, Viveres: 1320.70},
-            // {Articulo: "0541137", Nombre: "Pas. Triple Accion Ext. B Colgate 60 ml", Factor: "1/44", Unidad: "CJA/PZA", Pedido: 1, Viveres: 1320.70},
-            // {Articulo: "0541137", Nombre: "Pas. Triple Accion Ext. B Colgate 70 ml", Factor: "1/44", Unidad: "CJA/PZA", Pedido: 1, Viveres: 1320.70},
-            // {Articulo: "0541137", Nombre: "Pas. Triple Accion Ext. B Colgate 80 ml", Factor: "1/44", Unidad: "CJA/PZA", Pedido: 1, Viveres: 1320.70}
-        ]
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""},
+            {Articulo: "", Nombre: "", Factor: "", Unidad: "", Pedido: "", Viveres: ""}
+        ],
+        titles: ["Articulo", "Nombre", "Factor", "Unidad", "Pedido", "Viveres"],
+        titleAlert: "Advertencia",
+        messageAlert: "Formato incorrecto"
+    },
+    mounted: function() {
+        this.setNameFile("");
     },
     methods: {
-
+        isValidFormat: function(arrayTitles) {
+            if (arrayTitles.length < 6) return false;
+            const isValid = (
+                arrayTitles[0] === "Articulo" &&
+                arrayTitles[1] === "Nombre" &&
+                arrayTitles[2] === "Factor" &&
+                arrayTitles[3] === "Unidad" &&
+                arrayTitles[4] === "Pedido" &&
+                arrayTitles[5] === "Viveres"
+            ) ? true : false;
+            return isValid;
+        },
+        showMessageDialog: function(message) {
+            this.messageAlert = message;
+            $("#activateAlert").click();
+        },
+        setTitles: function(arrayTitle) {
+            this.titles = arrayTitle;
+        },
+        clickSearch: function() {
+            $("#readFile").click();
+        },
+        setNameFile: function(name) {
+            $("#textFile").val(name);
+        }
     }
 });

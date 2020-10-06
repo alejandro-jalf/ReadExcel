@@ -6,51 +6,79 @@
     <title>Leer excel</title>
     <link rel="shortcut icon" href="./images/cesta.png" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
     
+    <script type="text/javascript">
+        $(window).on("load", function() {
+            $(".background").hide(3000);
+        });
+    </script>
+    <div class="background modal-dialog-centered">
+        <img src="./images/spinner.gif" alt="" width="200px" height="200px">
+    </div>
+
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="navbar-brand">Lectura de archivos</div>
-            <input class="btn btn-info float-left" type="file" name="" id="readFile" accept = ".xls,.xlsx">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+            <a class="navbar-brand">Lectura de archivos</a>
+            <div class="input-group float-right" id="inputFile">
+                <input id="textFile" class="form-control" type="text" name="" placeholder="Nombre_archivo.xlsx" aria-label="Recipient's " aria-describedby="my-addon" readonly>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" onclick="app.clickSearch()">Seleccionar</button>
+                </div>
+            </div>
         </nav>
     </header>
 
     <div class="container" id="app">
-        <table class="table table-light">
-            <thead class="thead-dark">
-                <tr>
-                        <th>Articulo</th>
-                        <th>Nombre</th>
-                        <th>Factor</th>
-                        <th>Unidad</th>
-                        <th>Pedido</th>
-                        <th>Viveres</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="register in registers">
-                    <td>{{register.Articulo}}</td>
-                    <td>{{register.Nombre}}</td>
-                    <td>{{register.Factor}}</td>
-                    <td>{{register.Unidad}}</td>
-                    <td>{{register.Pedido}}</td>
-                    <td>{{register.Viveres}}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div style="width: 100%; overflow: auto;">
+            <table class="table table-light">
+                <thead class="thead-dark">
+                    <tr>
+                        <th v-for="title in titles">{{title}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(register, index) in registers" v-bind:class="{'bg-light': index%2 !== 0}">
+                        <td v-for="name in titles">{{register[`${name}`]}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Modal para mensajes en forma de alert -->
+        <div class="modal fade" id="alertDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning">
+                        <img class="float-left mr-3" src="./images/warning-white.png" alt="" width="30px">
+                        <h5 class="modal-title" id="exampleModalLongTitle">{{titleAlert}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-justify">
+                        <p>{{messageAlert}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+    <!-- Botones ocultos -->
+    <input class="btn btn-info float-left invisible" type="file" name="" id="readFile" accept = ".xls,.xlsx">
+    <button class="invisible" id="activateAlert" data-toggle="modal" data-target="#alertDialog">Alert</button>
+
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="./js/app.js"></script>
 
-    <!-- lectura de archivos excel -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>  -->
     <script src="./js/xlsx.full.min.js"></script>
     <script src="./js/load.js"></script>
 
