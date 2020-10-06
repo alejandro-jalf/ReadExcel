@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leer excel</title>
+    <link rel="shortcut icon" href="./images/cesta.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="navbar-brand">Lectura de archivos</div>
+            <input class="btn btn-info float-left" type="file" name="" id="readFile" accept = ".xls,.xlsx">
+        </nav>
+    </header>
+
+    <div class="container" id="app">
+        <table class="table table-light">
+            <thead class="thead-dark">
+                <tr>
+                        <th>Articulo</th>
+                        <th>Nombre</th>
+                        <th>Factor</th>
+                        <th>Unidad</th>
+                        <th>Pedido</th>
+                        <th>Viveres</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="register in registers">
+                    <td>{{register.Articulo}}</td>
+                    <td>{{register.Nombre}}</td>
+                    <td>{{register.Factor}}</td>
+                    <td>{{register.Unidad}}</td>
+                    <td>{{register.Pedido}}</td>
+                    <td>{{register.Viveres}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="./js/app.js"></script>
+
+    <!-- lectura de archivos excel -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>  -->
+    <script src="./js/xlsx.full.min.js"></script>
+    <script src="./js/load.js"></script>
+
+</body>
+</html>
